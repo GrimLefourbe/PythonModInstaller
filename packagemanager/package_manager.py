@@ -1,7 +1,7 @@
-import logging
-
 from typing import Dict, Tuple, List, Any, Union, Callable
 
+import logging
+import json
 
 # requirements = List[str] #list of ids of the packages required for the current package
 # conflicts = List[str] #list of ids of packages incompatible with the current one
@@ -21,18 +21,42 @@ class Component:
         self.name = componentname
         self.subcomponents = subcomponents
 
+    def to_dict(self) -> Dict[str, Any]:
+        return {'id': self.id,
+                'name': self.name,
+                'subcomponents': [comp.to_dict() for comp in self.subcomponents]}
+
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]) -> "Component":
+        return cls(d['id'],
+                   d['name'],
+                   [cls.from_dict(subcomp) for subcomp in d['subcomponents']])
+
 
 class Dependencies:
     """
 
     """
 
-    def __init(self, requirements: List[str] = None, conflicts: List[str] = None, before: List[str] = None,
-               after: List[str] = None):
+    def __init__(self, requirements: List[str] = None, conflicts: List[str] = None, before: List[str] = None,
+                 after: List[str] = None):
         self.requirements = requirements if requirements else []
         self.conflicts = conflicts if conflicts else []
         self.before = before if before else []
         self.after = after if after else []
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {'requirements': self.requirements.copy(),
+                'conflicts': self.conflicts.copy(),
+                'before': self.before.copy(),
+                'after': self.after.copy()}
+
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]) -> "Dependencies":
+        return cls(requirements=d['requirements'],
+                   conflicts=d['conflicts'],
+                   before=d['before'],
+                   after=d['after'])
 
 class Package:
     """
@@ -55,6 +79,49 @@ class Package:
         self.depends = depends
         self.components = components
 
+    def to_dict(self) -> Dict[str, Any]:
+        return {'id': self.id,
+                'name': self.name,
+                'dependencies': [{'involvedcomps': dep[1],
+                                  'dependency': dep[0].to_dict()} for dep in self.depends],
+                'components': [comp.to_dict() for comp in self.components]}
+
+    @classmethod
+    def from_dict(cls, d: Dict[str, Any]) -> "Package":
+        return cls(packageid=d['id'],
+                   name=d['name'],
+                   depends=[(Dependencies.from_dict(dep['dependency']), dep['involvedcomps']) for dep in
+                            d['dependencies']],
+                   components=[Component.from_dict(comp) for comp in d['components']])
+
+    @classmethod
+    def save_to_json(cls, pkgdict: Dict[str, "Package"], filename: str):
+        log = logging.getLogger(__name__)
+        log.info('Starting dict creation')
+        d = {}
+        for pkg in pkgdict.values():
+            log.debug('Saving mod {}'.format(pkg.id))
+            d[pkg.id] = pkg.to_dict()
+
+        log.info('Starting json dump to {}'.format(filename))
+        with open(file=filename, mode='w', encoding='utf-8') as f:
+            json.dump(d, f, indent=4)
+
+        return True
+
+    @classmethod
+    def load_from_json(cls, filename: str) -> Dict[str, "Package"]:
+        log = logging.getLogger(__name__)
+        log.info('Getting dict object')
+        with open(file=filename, mode='r', encoding='utf-8') as f:
+            d = json.load(f)
+
+        log.info('Creating objects')
+        pkgdict = {}
+        for pkgid, pkg in d.items():
+            pkgdict[pkgid] = cls.from_dict(pkg)
+
+        return pkgdict
 
 class InstallAction:
     """
