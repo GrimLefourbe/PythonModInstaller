@@ -1,0 +1,128 @@
+{
+  "A7-GolemConstruction": {
+    "id": "A7-GolemConstruction",
+    "name": "Golem Construction for Spellcasters",
+    "downloadurl": "http://lynxlynx.info/ie/modhub.php?Argent77/A7-GolemConstruction",
+    "desc": "This mod scatters various tomes all over the world that teach you how to construct golems. You can learn to build up to six golem types in different variants, and additionally a number of exotic golems.",
+    "readmeurl": "http://www.shsforums.net/topic/58696-mod-golem-construction-for-spellcasters/",
+    "version": "5.3.0",
+    "dependencies": {
+      "requirements": [],
+      "conflicts": [],
+      "before": [],
+      "after": []
+    },
+    "components": [
+      {
+        "id": "GolemConstr",
+        "name": "Golem Construction for spellcasters",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "ReplaceManual",
+        "name": "Replace original Golem Manual",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "ImprovedAI",
+        "name": "Improve enemy spellcaster AI",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "GolemsForEnemies",
+        "name": "Golems for enemy spellcasters",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "VariedEnemyGolems",
+        "name": "Greater variety of enemy golem types",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "FighterStrongholdGolems",
+        "name": "Fighter Stronghold golems may continue to serve you",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "SpellVulnerableGolems",
+        "name": "Make golems vulnerable to specific spell effects",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "LessWeaponImmunitiesForConstrGolems",
+        "name": "Reduce weapon immunities and resistances for constructed golems",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "IdentifyAll",
+        "name": "Identify all mod items",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      },
+      {
+        "id": "GolemTeleport",
+        "name": "Add \"Teleport\" ability to golems",
+        "dependencies": {
+          "requirements": [],
+          "conflicts": [],
+          "before": [],
+          "after": []
+        },
+        "subcomponents": []
+      }
+    ]
+  }
+}
